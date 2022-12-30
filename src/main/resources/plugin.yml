@@ -5,7 +5,7 @@ website: https://discord.gg/TF8jqSJjCG
 
 description: DefaultKit Plugin
 
-version: 1.0
+version: 1.0_Alpha
 api-version: 1.16
 
 softdepend:
