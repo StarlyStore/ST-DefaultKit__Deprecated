@@ -2,6 +2,7 @@ package net.starly.defaultkit.data;
 
 import net.starly.core.data.Config;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -25,6 +26,7 @@ public class DefaultKitData {
         this.player = player;
     }
 
+    private StringData stringData = new StringData();
 
     /**
      * 기본 키트를 지급받습니다.
@@ -33,15 +35,29 @@ public class DefaultKitData {
         Config config = new Config("kit", plugin);
         ConfigurationSection section = config.getConfig().getConfigurationSection("kit.items");
 
-        if(section.getKeys(false).size() > 36 - Arrays.stream(player.getInventory().getStorageContents()).filter(item -> item != null).count() ) {
-            player.sendMessage("§c인벤토리 공간이 부족합니다.");
-            return;
-        }
+        Config data = new Config("data/" + player.getUniqueId(), plugin);
 
-        for(String key : section.getKeys(false)) {
-            player.getInventory().addItem(section.getItemStack(key));
+        if(player.hasPermission("starly.defaultkit.get")) {
+
+            if (data.getBoolean("defaultkit")) {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgAlreadyGetDefaultKit()));
+                return;
+            }
+
+            if (section.getKeys(false).size() > 36 - Arrays.stream(player.getInventory().getStorageContents()).filter(item -> item != null).count()) {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgInventoryFull()));
+                return;
+            }
+
+            for (String key : section.getKeys(false)) {
+                player.getInventory().addItem(section.getItemStack(key));
+            }
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.msgGetDefaultKit()));
+            data.setBoolean("defaultkit", true);
+            data.saveConfig();
+        } else {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgNoPermission()));
         }
-        player.sendMessage("§a기본 키트를 지급받았습니다.");
     }
 
 
@@ -108,9 +124,9 @@ public class DefaultKitData {
         Config data = new Config("data/" + target.getUniqueId(), plugin);
 
         if (target == null) {
-            player.sendMessage("§c플레이어를 찾을 수 없습니다.");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgNoFindPlayer()));
         } else {
-            player.sendMessage("§a플레이어의 기본 키트를 초기화했습니다.");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.msgCompleteResetKit()));
             data.setBoolean("defaultkit", false);
             data.saveConfig();
         }

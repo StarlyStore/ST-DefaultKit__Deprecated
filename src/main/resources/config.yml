@@ -1,0 +1,23 @@
+prefix: '&6[기본템] &r'
+
+messages:
+
+  # 기본템을 지급받았을 때
+  getDefaultKit: '&f인벤토리에 기본템을 지급 받았습니다!'
+
+  # 기본템 초기화에 성공하였을 때
+  completeResetKit: "&6{player}&f님의 기본템을 초기화하였습니다!"
+
+errMessages:
+
+  # 인벤토리가 가득차서 기본템을 지급받을 수 없을 때
+  inventoryFull: "&c인벤토리가 가득차서 지급받을 수 없습니다! 인벤토리를 비워주세요!"
+
+  # 플레이어 닉네임을 잘못 입력하였을 때
+  noFindPlayer: "&c해당 플레이어는 접속중이지 않거나, 올바르지 않은 플레이어입니다!"
+
+  # 기본템을 이미 지급 받았을 경우
+  alreadyGetDefaultKit: "&c이미 기본템을 지급받았습니다!"
+
+  # 권한이 없을 경우
+  noPermission: "&c당신은 이 명령어를 사용할 권한이 없습니다!"
