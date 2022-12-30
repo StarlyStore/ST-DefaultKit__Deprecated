@@ -3,9 +3,7 @@ package net.starly.defaultkit.data;
 import net.starly.core.data.Config;
 
 public class StringData {
-
     private Config message;
-
 
     public String msgGetDefaultKit() {
         return getPrefix() + message.getString("messages.getDefaultKit");
@@ -29,6 +27,10 @@ public class StringData {
 
     public String errMsgNoPermission() {
         return getPrefix() + message.getString("errMessages.noPermission");
+    }
+
+    public String errMsgInvalidCommand() {
+        return getPrefix() + message.getString("errMessages.invalidCommand");
     }
 
 

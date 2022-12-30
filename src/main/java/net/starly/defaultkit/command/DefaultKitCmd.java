@@ -8,47 +8,52 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class DefaultKitCmd implements CommandExecutor {
 
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+        if (!(sender instanceof Player player)) return true;
 
-        if(sender instanceof Player player) {
+        DefaultKitData kit = new DefaultKitData(player);
+        if (args.length == 0) {
+            kit.getDefaultKit();
+            return true;
+        }
 
-            DefaultKitData kit = new DefaultKitData(player);
+        StringData stringData = new StringData();
 
-            if (args.length == 0) {
-                kit.getDefaultKit();
+        if (!player.hasPermission("starly.defaultkit.admin")) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgNoPermission()));
+
+            return true;
+        }
+
+        switch (args[0].toLowerCase()) {
+            case "설정", "setting" -> {
+                kit.openDefaultKitSetting();
                 return true;
             }
 
-            if (player.hasPermission("starly.defaultkit.admin")) {
-                switch (args[0]) {
-
-                    case "설정", "setting" -> {
-                        kit.openDefaultKitSetting();
-                        return true;
-                    }
-
-                    case "초기화", "reset" -> {
-                        Player target = Bukkit.getPlayer(args[1]);
-                        kit.resetDefaultKit(target);
-                        return true;
-                    }
+            case "초기화", "reset" -> {
+                if (args.length != 2) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgInvalidCommand()));
+                    return true;
                 }
-            } else {
-                StringData stringData = new StringData();
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgNoPermission()));
+
+                Player target = Bukkit.getPlayer(args[1]);
+                if (target == null) {
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgNoFindPlayer()));
+                    return true;
+                }
+
+                kit.resetDefaultKit(target);
+                return true;
             }
         }
+
         return false;
     }
 }
