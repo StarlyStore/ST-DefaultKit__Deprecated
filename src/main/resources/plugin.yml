@@ -5,11 +5,10 @@ website: https://discord.gg/TF8jqSJjCG
 
 description: DefaultKit Plugin
 
-version: 1.0_Alpha
+version: 1.0.1_Alpha
 api-version: 1.16
 
-softdepend:
-  - ST-Core
+softdepend: [ ST-Core ]
 
 commands:
   defaultkit:
