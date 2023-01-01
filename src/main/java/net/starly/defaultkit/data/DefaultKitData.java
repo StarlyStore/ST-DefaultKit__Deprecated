@@ -34,6 +34,7 @@ public class DefaultKitData {
 
         Config data = new Config("data/" + player.getUniqueId(), DefaultKit.getPlugin());
 
+
         if (!player.hasPermission("starly.defaultkit.get")) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgNoPermission()));
             return;
@@ -109,15 +110,11 @@ public class DefaultKitData {
      *
      * @param target 초기화할 플레이어
      */
-    public void resetDefaultKit(Player target) {
+    public void resetDefaultKit(@NotNull Player target) {
         Config data = new Config("data/" + target.getUniqueId(), DefaultKit.getPlugin());
 
-        if (target == null) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.errMsgNoFindPlayer()));
-            return;
-        }
-
-        player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.msgCompleteResetKit()));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', stringData.msgCompleteResetKit()
+                .replace("{player}", target.getDisplayName())));
         data.setBoolean("defaultkit", false);
         data.saveConfig();
     }

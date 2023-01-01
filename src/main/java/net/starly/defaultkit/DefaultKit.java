@@ -1,6 +1,7 @@
 package net.starly.defaultkit;
 
 import net.starly.core.data.Config;
+import net.starly.defaultkit.command.DefaultCmdTabComplete;
 import net.starly.defaultkit.command.DefaultKitCmd;
 import net.starly.defaultkit.event.InventoryCloseListener;
 import org.bukkit.Bukkit;
@@ -11,6 +12,7 @@ import java.util.logging.Logger;
 public class DefaultKit extends JavaPlugin {
     private static JavaPlugin plugin;
     private final Logger log = Bukkit.getLogger();
+
 
     @Override
     public void onEnable() {
@@ -32,13 +34,16 @@ public class DefaultKit extends JavaPlugin {
 
         // CONFIG
         Config config = new Config("config", this);
+        Config kit = new Config("kit", this);
         config.loadDefaultPluginConfig();
+        kit.loadDefaultPluginConfig();
 
         // EVENT
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
 
         // COMMAND
         Bukkit.getPluginCommand("defaultkit").setExecutor(new DefaultKitCmd());
+        Bukkit.getPluginCommand("defaultkit").setTabCompleter(new DefaultCmdTabComplete());
     }
 
     public static JavaPlugin getPlugin() {

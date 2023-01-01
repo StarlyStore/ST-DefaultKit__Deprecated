@@ -1,9 +1,11 @@
 package net.starly.defaultkit.data;
 
 import net.starly.core.data.Config;
+import net.starly.defaultkit.DefaultKit;
 
 public class StringData {
-    private Config message;
+    private Config message = new Config("config", DefaultKit.getPlugin());
+
 
     public String msgGetDefaultKit() {
         return getPrefix() + message.getString("messages.getDefaultKit");
