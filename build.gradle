@@ -29,7 +29,3 @@ compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
-
-jar {
-    destinationDirectory.set(file('C:\\Users\\Yangd\\대영\\마인크래프트\\서버\\마인크래프트\\개발용\\스탈리\\plugins')) // Build Section
-}
