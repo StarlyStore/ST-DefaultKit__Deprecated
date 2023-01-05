@@ -1,5 +1,6 @@
 package net.starly.defaultkit;
 
+import net.starly.core.bstats.Metrics;
 import net.starly.core.data.Config;
 import net.starly.defaultkit.command.DefaultCmdTabComplete;
 import net.starly.defaultkit.command.DefaultKitCmd;
@@ -31,6 +32,8 @@ public class DefaultKit extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
+
+        new Metrics(this, 17296);
 
         // CONFIG
         Config config = new Config("config", this);
