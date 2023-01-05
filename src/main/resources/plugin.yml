@@ -3,7 +3,7 @@ main: net.starly.defaultkit.DefaultKit
 author: Starly Team
 website: https://discord.gg/TF8jqSJjCG
 
-description: DefaultKit Plugin
+description: DefaultKit Plugin.
 
 version: 1.0.1_Alpha
 api-version: 1.16
